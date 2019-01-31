@@ -1,21 +1,46 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<router-outlet></router-outlet>
+<table>
+  <tr>
+    <th>Uppercase Letters (A-Z)</th>
+    <td><input type="checkbox" [(ngModel)]="uppercaseLetters" /></td>
+    <td>Min Length</td>
+    <td><input type="text" [(ngModel)]="uppercaseLettersMinLength" /></td>
+  </tr>
+  <tr>
+    <th>Lowercase Letters (a-z)</th>
+    <td><input type="checkbox" [(ngModel)]="lowercaseLetters" /></td>
+    <td>Min Length</td>
+    <td><input type="text" [(ngModel)]="lowercaseLettersMinLength" /></td>
+  </tr>
+  <tr>
+    <th>Numbers (0-9)</th>
+    <td><input type="checkbox" [(ngModel)]="numbers" /></td>
+    <td>Min Length</td>
+    <td><input type="text" [(ngModel)]="numbersMinLength" /></td>
+  </tr>
+  <tr>
+    <th>Symbols (!@#$&?)</th>
+    <td><input type="checkbox" [(ngModel)]="symbols" /></td>
+    <td>Min Length</td>
+    <td><input type="text" [(ngModel)]="symbolsMinLength" /></td>
+  </tr>
+  <tr>
+    <th>Arithmetic Operators (%*+-=/)</th>
+    <td><input type="checkbox" [(ngModel)]="arithmeticOperators" /></td>
+    <td>Min Length</td>
+    <td><input type="text" [(ngModel)]="arithmeticOperatorsMinLength" /></td>
+  </tr>
+  <tr>
+    <th>Special Characters (~^()_`{{'{'}}{{'}'}}|[]\:";'{{'<'}}'>?,.'")</th>
+    <td><input type="checkbox" [(ngModel)]="specialCharacters" /></td>
+    <td>Min Length</td>
+    <td><input type="text" [(ngModel)]="specialCharactersMinLength" /></td>
+  </tr>
+  <tr>
+    <th>Password Length</th>
+    <td><input type="text" [(ngModel)]="passwordLength" /></td>
+  </tr>
+  <tr>
+    <th><button (click)="generate()">Generate!</button></th>
+    <td>{{ generatedPassword }}</td>
+  </tr>
+</table>
