@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { PasswordGeneratorService } from '../password-generator.service';
 
 @Component({
   selector: 'app-password-generator-form',
@@ -24,13 +25,17 @@ export class PasswordGeneratorFormComponent implements OnInit {
     passwordLength: new FormControl(12),
   })
 
-  constructor() { }
+  generatedPassword: string = "";
+
+  constructor(private passwordGeneratorService: PasswordGeneratorService) { }
 
   ngOnInit() {
   }
 
   generate() {
     console.log(this.passwordGeneratorForm.value);
+
+    this.generatedPassword = this.passwordGeneratorService.generate(this.passwordGeneratorForm.value);
   }
 
 }
