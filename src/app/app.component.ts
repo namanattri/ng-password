@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { PasswordGeneratorService } from './password-generator.service';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class AppComponent {
   title = 'Password Generator - Angular';
-
-  validUppercaseLetters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  validLowercaseLetters: string = 'abcdefghijklmnopqrstuvwxyz';
-  validNumbers: string = '0123456789';
-  validSymbols: string = '!@#$&?';
-  validArithmeticOperators: string = '%*+-=/';
-  validSpecialCharacters: string = '~^()_`{}|[]\:";\'<>?,.';
 
   @Input() uppercaseLetters: boolean = true;
   @Input() lowercaseLetters: boolean = true;
@@ -33,39 +27,26 @@ export class AppComponent {
 
   generatedPassword: string = "";
 
+  constructor(private passwordGeneratorService: PasswordGeneratorService) {}
+
   generate() {
-    let unshuffledPassword: string = "";
-    if(this.uppercaseLetters) unshuffledPassword += this.getRandom(this.validUppercaseLetters, this.uppercaseLettersMinLength);
-    if(this.lowercaseLetters) unshuffledPassword += this.getRandom(this.validLowercaseLetters, this.lowercaseLettersMinLength);
-    if(this.numbers) unshuffledPassword += this.getRandom(this.validNumbers, this.numbersMinLength);
-    if(this.symbols) unshuffledPassword += this.getRandom(this.validSymbols, this.symbolsMinLength);
-    if(this.arithmeticOperators) unshuffledPassword += this.getRandom(this.validArithmeticOperators, this.arithmeticOperatorsMinLength);
-    if(this.specialCharacters) unshuffledPassword += this.getRandom(this.validSpecialCharacters, this.specialCharactersMinLength);
 
-    if(unshuffledPassword.length < this.passwordLength) {
-      unshuffledPassword += this.getRandom(
-        this.uppercaseLetters ? this.validUppercaseLetters : "" 
-          + this.lowercaseLetters ? this.validLowercaseLetters : "" 
-          + this.numbers ? this.validNumbers : "" 
-          + this.symbols ? this.validSymbols : "" 
-          + this.arithmeticOperators ? this.validArithmeticOperators : "" 
-          + this.specialCharacters ? this.validSpecialCharacters : "", 
-        this.passwordLength - unshuffledPassword.length);
-    }
+    this.generatedPassword = this.passwordGeneratorService.generate(
+      this.uppercaseLetters,
+      this.lowercaseLetters,
+      this.numbers,
+      this.symbols,
+      this.arithmeticOperators,
+      this.specialCharacters,
 
-    this.generatedPassword = this.shuffle(unshuffledPassword);
-  }
-
-  shuffle(str: string) {
-    if (!str) return ''
-    return str.split('').sort((a, b) => Math.random()>.5 ? -1 : 1).join('');
-  }
-
-  getRandom(str: string, len: number) {
-    let randomTxt: string = "";
-    for(let i:number = 0; i < len; i++) {
-      randomTxt += str.charAt(Math.floor(Math.random() * str.length));
-    }
-    return randomTxt;
+      this.uppercaseLettersMinLength,
+      this.lowercaseLettersMinLength,
+      this.numbersMinLength,
+      this.symbolsMinLength,
+      this.arithmeticOperatorsMinLength,
+      this.specialCharactersMinLength,
+      
+      this.passwordLength
+    )
   }
 }
