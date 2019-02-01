@@ -51,6 +51,10 @@ export class PasswordGeneratorService {
     return this.shuffle(unshuffledPassword);
   }
 
+  generateOptimal() {
+    
+  }
+
   shuffle(str: string) {
     if (!str) return ''
     return str.split('').sort((a, b) => Math.random()>.5 ? -1 : 1).join('');

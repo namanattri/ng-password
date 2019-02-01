@@ -29,4 +29,8 @@ export class PasswordGeneratorFormComponent implements OnInit {
   ngOnInit() {
   }
 
+  generate() {
+    console.log(this.passwordGeneratorForm.value);
+  }
+
 }
