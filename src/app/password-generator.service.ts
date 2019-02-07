@@ -5,31 +5,30 @@ import { PasswordGeneratorFormInterface } from './password-generator-form-interf
   providedIn: 'root'
 })
 export class PasswordGeneratorService {
-  
-  private validUppercaseLetters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  private validLowercaseLetters: string = 'abcdefghijklmnopqrstuvwxyz';
-  private validNumbers: string = '0123456789';
-  private validSymbols: string = '!@#$&?';
-  private validArithmeticOperators: string = '%*+-=/';
-  private validSpecialCharacters: string = '~^()_`{}|[]\:";\'<>?,.';
+
+  allowRepeatingCharacters: boolean;
 
   generate(formValue: PasswordGeneratorFormInterface) {    
     let unshuffledPassword: string = "";
-    if(formValue.uppercaseLetters) unshuffledPassword += this.getRandom(this.validUppercaseLetters, formValue.uppercaseLettersMinLength);
-    if(formValue.lowercaseLetters) unshuffledPassword += this.getRandom(this.validLowercaseLetters, formValue.lowercaseLettersMinLength);
-    if(formValue.numbers) unshuffledPassword += this.getRandom(this.validNumbers, formValue.numbersMinLength);
-    if(formValue.symbols) unshuffledPassword += this.getRandom(this.validSymbols, formValue.symbolsMinLength);
-    if(formValue.arithmeticOperators) unshuffledPassword += this.getRandom(this.validArithmeticOperators, formValue.arithmeticOperatorsMinLength);
-    if(formValue.specialCharacters) unshuffledPassword += this.getRandom(this.validSpecialCharacters, formValue.specialCharactersMinLength);
+    this.allowRepeatingCharacters = formValue.allowRepeatingCharacters;
+
+    if(formValue.useUppercaseLetters) unshuffledPassword += this.getRandom(formValue.uppercaseLetters, 1);
+    if(formValue.useLowercaseLetters) unshuffledPassword += this.getRandom(formValue.lowercaseLetters, 1);
+    if(formValue.useNumbers) unshuffledPassword += this.getRandom(formValue.numbers, 1);
+    if(formValue.useSymbols) unshuffledPassword += this.getRandom(formValue.symbols, 1);
+    if(formValue.useArithmeticOperators) unshuffledPassword += this.getRandom(formValue.arithmeticOperators, 1);
+    if(formValue.useSpecialCharacters) unshuffledPassword += this.getRandom(formValue.specialCharacters, 1);
+    if(formValue.allowSpaces) unshuffledPassword += this.getRandom(" ", 1);
 
     if(unshuffledPassword.length < formValue.passwordLength) {
       unshuffledPassword += this.getRandom(
-        formValue.uppercaseLetters ? this.validUppercaseLetters : "" 
-          + formValue.lowercaseLetters ? this.validLowercaseLetters : "" 
-          + formValue.numbers ? this.validNumbers : "" 
-          + formValue.symbols ? this.validSymbols : "" 
-          + formValue.arithmeticOperators ? this.validArithmeticOperators : "" 
-          + formValue.specialCharacters ? this.validSpecialCharacters : "", 
+        (formValue.useUppercaseLetters ? formValue.uppercaseLetters : "")
+          + (formValue.useLowercaseLetters ? formValue.lowercaseLetters : "")
+          + (formValue.useNumbers ? formValue.numbers : "")
+          + (formValue.useSymbols ? formValue.symbols : "")
+          + (formValue.useArithmeticOperators ? formValue.arithmeticOperators : "")
+          + (formValue.useSpecialCharacters ? formValue.specialCharacters : "")
+          + (formValue.allowSpaces ? " " : ""),
           formValue.passwordLength - unshuffledPassword.length);
     }
 
@@ -43,9 +42,17 @@ export class PasswordGeneratorService {
 
   private getRandom(str: string, len: number) {
     let randomTxt: string = "";
+    console.log("string: ", str)
     for(let i:number = 0; i < len; i++) {
-      randomTxt += str.charAt(Math.floor(Math.random() * str.length));
+      randomTxt += this.getRandomChar(str, randomTxt)
     }
     return randomTxt;
+  }
+
+  private getRandomChar(str: string, randomTxt: string){
+    let char = str.charAt(Math.floor(Math.random() * str.length))
+
+    if(!this.allowRepeatingCharacters && randomTxt.includes(char)) return this.getRandomChar(str, randomTxt)
+    else return char;
   }
 }

@@ -10,19 +10,24 @@ import { PasswordGeneratorService } from '../password-generator.service';
 export class PasswordGeneratorFormComponent implements OnInit {
 
   passwordGeneratorForm: FormGroup = new FormGroup({
-    uppercaseLetters: new FormControl(true),
-    lowercaseLetters: new FormControl(true),
-    numbers: new FormControl(true),
-    symbols: new FormControl(true),
-    arithmeticOperators: new FormControl(true),
-    specialCharacters: new FormControl(true),
-    uppercaseLettersMinLength: new FormControl(1),
-    lowercaseLettersMinLength: new FormControl(1),
-    numbersMinLength: new FormControl(1),
-    symbolsMinLength: new FormControl(1),
-    arithmeticOperatorsMinLength: new FormControl(1),
-    specialCharactersMinLength: new FormControl(1),
-    passwordLength: new FormControl(12),
+    useUppercaseLetters: new FormControl(true),
+    useLowercaseLetters: new FormControl(true),
+    useNumbers: new FormControl(true),
+    useSymbols: new FormControl(true),
+    useArithmeticOperators: new FormControl(true),
+    useSpecialCharacters: new FormControl(true),
+    allowSpaces: new FormControl(false),
+
+    uppercaseLetters: new FormControl('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+    lowercaseLetters: new FormControl('abcdefghijklmnopqrstuvwxyz'),
+    numbers: new FormControl('0123456789'),
+    symbols: new FormControl('!@#$&?'),
+    arithmeticOperators: new FormControl('%*+-=/'),
+    specialCharacters: new FormControl('~^()_`{}|[]\:";<>?,.\'"'),
+
+    passwordLength: new FormControl(16),
+
+    allowRepeatingCharacters: new FormControl(false)
   })
 
   generatedPassword: string = "";

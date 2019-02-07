@@ -1,15 +1,20 @@
 export interface PasswordGeneratorFormInterface {
-  uppercaseLetters: boolean;
-  lowercaseLetters: boolean;
-  numbers: boolean;
-  symbols: boolean;
-  arithmeticOperators: boolean;
-  specialCharacters: boolean;
-  uppercaseLettersMinLength: number;
-  lowercaseLettersMinLength: number;
-  numbersMinLength: number;
-  symbolsMinLength: number;
-  arithmeticOperatorsMinLength: number;
-  specialCharactersMinLength: number;
+  useUppercaseLetters: boolean;
+  useLowercaseLetters: boolean;
+  useNumbers: boolean;
+  useSymbols: boolean;
+  useArithmeticOperators: boolean;
+  useSpecialCharacters: boolean;
+  allowSpaces: boolean;
+
+  uppercaseLetters: string;
+  lowercaseLetters: string;
+  numbers: string;
+  symbols: string;
+  arithmeticOperators: string;
+  specialCharacters: string;
+
   passwordLength: number;
+  
+  allowRepeatingCharacters: boolean;
 }
