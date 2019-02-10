@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PasswordGeneratorService } from '../password-generator.service';
+import { CopyToClipboardService } from '../copy-to-clipboard.service';
 
 @Component({
   selector: 'app-password-generator-form',
@@ -8,6 +9,9 @@ import { PasswordGeneratorService } from '../password-generator.service';
   styleUrls: ['./password-generator-form.component.css']
 })
 export class PasswordGeneratorFormComponent implements OnInit {
+
+  passwordLengthMin: number = 16
+  passwordLengthMax: number = 100
 
   passwordGeneratorForm: FormGroup = new FormGroup({
     useUppercaseLetters: new FormControl(true),
@@ -17,6 +21,7 @@ export class PasswordGeneratorFormComponent implements OnInit {
     useArithmeticOperators: new FormControl(true),
     useSpecialCharacters: new FormControl(true),
     allowSpaces: new FormControl(false),
+    allowRepeatingCharacters: new FormControl(false),
 
     uppercaseLetters: new FormControl('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
     lowercaseLetters: new FormControl('abcdefghijklmnopqrstuvwxyz'),
@@ -27,20 +32,37 @@ export class PasswordGeneratorFormComponent implements OnInit {
 
     passwordLength: new FormControl(16),
 
-    allowRepeatingCharacters: new FormControl(false)
+
+    generatedPassword: new FormControl('')
   })
 
   generatedPassword: string = "";
 
-  constructor(private passwordGeneratorService: PasswordGeneratorService) { }
+  constructor(
+    private passwordGeneratorService: PasswordGeneratorService, 
+    private copyToClipboardService: CopyToClipboardService
+  ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   generate() {
     console.log(this.passwordGeneratorForm.value);
 
+    this.passwordGeneratorForm.patchValue({
+      generatedPassword: this.passwordGeneratorService.generate(this.passwordGeneratorForm.value)
+    })
+
     this.generatedPassword = this.passwordGeneratorService.generate(this.passwordGeneratorForm.value);
+  }
+
+  copyToClipboard() {
+    this.copyToClipboardService.copyToClipboard(this.passwordGeneratorForm.value.generatedPassword)
+  }
+
+  passwordLengthChange(value: number) {
+    this.passwordGeneratorForm.patchValue({
+      passwordLength: value
+    })
   }
 
 }
