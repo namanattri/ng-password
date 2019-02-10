@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PasswordGeneratorFormInterface } from './password-generator-form-interface';
 import { ShufflerService } from './shuffler.service';
+import { RandomGeneratorService } from './random-generator.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class PasswordGeneratorService {
   specialCharacters: string = "";
 
   constructor(
-    protected shufflerService: ShufflerService
+    protected shufflerService: ShufflerService,
+    protected randomGeneratorService: RandomGeneratorService
   ) {}
   
 
@@ -35,13 +37,13 @@ export class PasswordGeneratorService {
     this.specialCharacters = formValue.specialCharacters;
 
     //prefix
-    if(formValue.useUppercaseLetters) this.unshuffledPassword += this.getRandom(formValue.uppercaseLetters, 1);
-    if(formValue.useLowercaseLetters) this.unshuffledPassword += this.getRandom(formValue.lowercaseLetters, 1);
-    if(formValue.useNumbers) this.unshuffledPassword += this.getRandom(formValue.numbers, 1);
-    if(formValue.useSymbols) this.unshuffledPassword += this.getRandom(formValue.symbols, 1);
-    if(formValue.useArithmeticOperators) this.unshuffledPassword += this.getRandom(formValue.arithmeticOperators, 1);
-    if(formValue.useSpecialCharacters) this.unshuffledPassword += this.getRandom(formValue.specialCharacters, 1);
-    if(formValue.allowSpaces) this.unshuffledPassword += this.getRandom(" ", 1);
+    if(formValue.useUppercaseLetters) this.unshuffledPassword += this.randomGeneratorService.getRandom(formValue.uppercaseLetters, 1);
+    if(formValue.useLowercaseLetters) this.unshuffledPassword += this.randomGeneratorService.getRandom(formValue.lowercaseLetters, 1);
+    if(formValue.useNumbers) this.unshuffledPassword += this.randomGeneratorService.getRandom(formValue.numbers, 1);
+    if(formValue.useSymbols) this.unshuffledPassword += this.randomGeneratorService.getRandom(formValue.symbols, 1);
+    if(formValue.useArithmeticOperators) this.unshuffledPassword += this.randomGeneratorService.getRandom(formValue.arithmeticOperators, 1);
+    if(formValue.useSpecialCharacters) this.unshuffledPassword += this.randomGeneratorService.getRandom(formValue.specialCharacters, 1);
+    if(formValue.allowSpaces) this.unshuffledPassword += this.randomGeneratorService.getRandom(" ", 1);
 
     //suffix
     if(this.unshuffledPassword.length < formValue.passwordLength) {
@@ -55,10 +57,10 @@ export class PasswordGeneratorService {
 
       if(!this.allowRepeatingCharacters) {
         combo = this.removeUsed(combo);
-        this.unshuffledPassword += this.getRandomUnique(combo, formValue.passwordLength - this.unshuffledPassword.length)        
+        this.unshuffledPassword += this.randomGeneratorService.getRandomUnique(combo, formValue.passwordLength - this.unshuffledPassword.length)        
       } else {
         // repeatitive works
-        this.unshuffledPassword += this.getRandom(combo, formValue.passwordLength - this.unshuffledPassword.length)        
+        this.unshuffledPassword += this.randomGeneratorService.getRandom(combo, formValue.passwordLength - this.unshuffledPassword.length)        
       }
     }
 
@@ -70,32 +72,5 @@ export class PasswordGeneratorService {
       combo = combo.replace(char, '')
     })
     return combo;
-  }
-
-  protected getRandom(str: string, len: number): string {
-    let randomTxt: string = "";
-    
-    if(str.length == 0) return randomTxt;
-    
-    for(let i:number = 0; i < len; i++) {
-      randomTxt += this.getRandomChar(str, randomTxt)
-    }
-    return randomTxt;
-  }
-
-  protected getRandomUnique(str: string, len: number): string {
-    let randomTxt: string = "";
-    
-    for(let i:number = 0; i < len; i++) {
-      let ch = this.getRandomChar(str, randomTxt)
-      randomTxt += ch;
-      str = str.replace(ch, '')
-    }
-    return randomTxt;
-  }
-
-  protected getRandomChar(str: string, randomTxt: string): string {
-    let char = str.charAt(Math.floor(Math.random() * str.length))
-    return char;
   }
 }
