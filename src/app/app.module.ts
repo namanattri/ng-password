@@ -5,12 +5,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PasswordGeneratorFormComponent } from './password-generator-form/password-generator-form.component';
+import { PasswordGeneratorComponent } from './password-generator/password-generator.component';
+import { PinGeneratorComponent } from './pin-generator/pin-generator.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PasswordGeneratorFormComponent
+    PasswordGeneratorComponent,
+    PinGeneratorComponent
   ],
   imports: [
     BrowserModule,

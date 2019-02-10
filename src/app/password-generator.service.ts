@@ -60,19 +60,19 @@ export class PasswordGeneratorService {
     return this.shuffle(this.unshuffledPassword);
   }
 
-  private removeUsed(combo: string): string {
+  protected removeUsed(combo: string): string {
     this.unshuffledPassword.split('').forEach(char => {
       combo = combo.replace(char, '')
     })
     return combo;
   }
 
-  private shuffle(str: string): string {
+  protected shuffle(str: string): string {
     if (!str) return ''
     return str.split('').sort((a, b) => Math.random()>.5 ? -1 : 1).join('');
   }
 
-  private getRandom(str: string, len: number): string {
+  protected getRandom(str: string, len: number): string {
     let randomTxt: string = "";
     
     if(str.length == 0) return randomTxt;
@@ -83,7 +83,7 @@ export class PasswordGeneratorService {
     return randomTxt;
   }
 
-  private getRandomUnique(str: string, len: number): string {
+  protected getRandomUnique(str: string, len: number): string {
     let randomTxt: string = "";
     
     for(let i:number = 0; i < len; i++) {
@@ -94,7 +94,7 @@ export class PasswordGeneratorService {
     return randomTxt;
   }
 
-  private getRandomChar(str: string, randomTxt: string): string {
+  protected getRandomChar(str: string, randomTxt: string): string {
     let char = str.charAt(Math.floor(Math.random() * str.length))
     return char;
   }
