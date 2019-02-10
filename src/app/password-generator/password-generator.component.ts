@@ -4,11 +4,11 @@ import { PasswordGeneratorService } from '../password-generator.service';
 import { CopyToClipboardService } from '../copy-to-clipboard.service';
 
 @Component({
-  selector: 'app-password-generator-form',
-  templateUrl: './password-generator-form.component.html',
-  styleUrls: ['./password-generator-form.component.css']
+  selector: 'app-password-generator',
+  templateUrl: './password-generator.component.html',
+  styleUrls: ['./password-generator.component.css']
 })
-export class PasswordGeneratorFormComponent implements OnInit {
+export class PasswordGeneratorComponent implements OnInit {
 
   passwordLengthMin: number = 16
   passwordLengthMax: number = 200
@@ -90,8 +90,6 @@ export class PasswordGeneratorFormComponent implements OnInit {
   }
 
   generate() {
-    console.log(this.passwordGeneratorForm.value);
-
     this.passwordGeneratorForm.patchValue({
       generatedPassword: this.passwordGeneratorService.generate(this.passwordGeneratorForm.value)
     })
