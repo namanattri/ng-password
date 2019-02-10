@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PasswordGeneratorComponent } from './password-generator/password-generator.component';
 import { PinGeneratorComponent } from './pin-generator/pin-generator.component';
+import { Md5EcryptComponent } from './md5-ecrypt/md5-ecrypt.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PasswordGeneratorComponent,
-    PinGeneratorComponent
+    PinGeneratorComponent,
+    Md5EcryptComponent
   ],
   imports: [
     BrowserModule,
