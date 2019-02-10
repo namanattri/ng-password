@@ -10,6 +10,9 @@ import { CopyToClipboardService } from '../copy-to-clipboard.service';
 })
 export class PasswordGeneratorFormComponent implements OnInit {
 
+  passwordLengthMin: number = 16
+  passwordLengthMax: number = 100
+
   passwordGeneratorForm: FormGroup = new FormGroup({
     useUppercaseLetters: new FormControl(true),
     useLowercaseLetters: new FormControl(true),
@@ -40,12 +43,7 @@ export class PasswordGeneratorFormComponent implements OnInit {
     private copyToClipboardService: CopyToClipboardService
   ) { }
 
-  ngOnInit() {
-
-    this.passwordGeneratorForm.valueChanges.subscribe(val => {
-      console.log(val)
-    })
-  }
+  ngOnInit() {}
 
   generate() {
     console.log(this.passwordGeneratorForm.value);
