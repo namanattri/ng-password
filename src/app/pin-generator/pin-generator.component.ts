@@ -36,7 +36,6 @@ export class PinGeneratorComponent implements OnInit {
   }
 
   generate() {
-    console.log('hit gen')
     this.pinGeneratorForm.patchValue({
       fourDigitPin: this.pinGeneratorService.generateFourDigit(this.pinGeneratorForm.value),
       sixDigitPin: this.pinGeneratorService.generateSixDigit(this.pinGeneratorForm.value)

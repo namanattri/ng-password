@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PasswordGeneratorFormInterface } from './password-generator-form-interface';
+import { ShufflerService } from './shuffler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class PasswordGeneratorService {
   symbols: string = "";
   arithmeticOperators: string = "";
   specialCharacters: string = "";
+
+  constructor(
+    protected shufflerService: ShufflerService
+  ) {}
   
 
   generate(formValue: PasswordGeneratorFormInterface): string {
@@ -57,7 +62,7 @@ export class PasswordGeneratorService {
       }
     }
 
-    return this.shuffle(this.unshuffledPassword);
+    return this.shufflerService.shuffle(this.unshuffledPassword);
   }
 
   protected removeUsed(combo: string): string {
@@ -65,11 +70,6 @@ export class PasswordGeneratorService {
       combo = combo.replace(char, '')
     })
     return combo;
-  }
-
-  protected shuffle(str: string): string {
-    if (!str) return ''
-    return str.split('').sort((a, b) => Math.random()>.5 ? -1 : 1).join('');
   }
 
   protected getRandom(str: string, len: number): string {
