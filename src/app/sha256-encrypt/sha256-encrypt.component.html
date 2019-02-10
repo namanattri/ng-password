@@ -1,0 +1,29 @@
+<h3 class="mt-2">SHA256 Encryption</h3>
+<p class="text-justify">Encrypts entered text using Secure Hash Algorithm 256 (SHA256) algorithm.</p>
+
+<form [formGroup]="sha256EncryptForm">
+  <div class="form-group row">
+    <label for="sha256InputText" class="col-md-4 col-form-label">Input Text</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" formControlName="sha256InputText" id="sha256InputText" placeholder="Input text for SHA256 encryption">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="sha256OutputText" class="col-md-4 col-form-label">Output Text</label>
+    <div class="col-md-8">
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" formControlName="sha256OutputText" id="sha256OutputText" placeholder="SHA256 Encrypted Output text">
+        <div class="input-group-prepend">
+          <div class="input-group-text" style="cursor: pointer;" title="Click to copy" (click)="copyToClipboard()"><i class="far fa-copy"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <button (click)="encypt()" class="btn btn-success">Encrypt!</button>
+      <button (click)="clear()" class="btn btn-info ml-1">Clear!</button>
+    </div>
+  </div>
+</form>
