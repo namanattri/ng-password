@@ -18,6 +18,9 @@
  * BROWSER POLYFILLS
  */
 
+global.process = global.process || require('process');
+global.Buffer = global.Buffer || require('buffer').Buffer;
+
 /** IE9, IE10, IE11, and Chrome <55 requires all of the following polyfills.
  *  This also includes Android Emulators with older versions of Chrome and Google Search/Googlebot
  */

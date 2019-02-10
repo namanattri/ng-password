@@ -1,0 +1,29 @@
+<h3 class="mt-2">SHA512 Encryption</h3>
+<p class="text-justify">Encrypts entered text using Secure Hash Algorithm 512 (SHA512) algorithm.</p>
+
+<form [formGroup]="sha512EncryptForm">
+  <div class="form-group row">
+    <label for="sha512InputText" class="col-md-4 col-form-label">Input Text</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" formControlName="sha512InputText" id="sha512InputText" placeholder="Input text for SHA512 encryption">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="sha512OutputText" class="col-md-4 col-form-label">Output Text</label>
+    <div class="col-md-8">
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" formControlName="sha512OutputText" id="sha512OutputText" placeholder="SHA512 Encrypted Output text">
+        <div class="input-group-prepend">
+          <div class="input-group-text" style="cursor: pointer;" title="Click to copy" (click)="copyToClipboard()"><i class="far fa-copy"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <button (click)="encypt()" class="btn btn-success">Encrypt!</button>
+      <button (click)="clear()" class="btn btn-info ml-1">Clear!</button>
+    </div>
+  </div>
+</form>
